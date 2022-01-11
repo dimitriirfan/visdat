@@ -25,15 +25,15 @@ def bar_chart(covid):
             'recovered' : [df.Recovered],
             'deaths' : [df.Deaths]
         }
-        return ColumnDataSource(data=yo)
+        return ColumnDataSource(data=dict(x=['confirmed', 'recovered', 'deaths'], top=[[df.Confirmed], [df.Recovered], [df.Deaths]]))
 
     def make_plot(source, title) :
-        s = source.data
-        stats = list(s.keys())[1:]
-        counts = list(s.values())[1:]
-        plot = figure(x_range=stats, height=250, title=f"{title}", toolbar_location=None, tools="")
+        # s = source.data
+        # stats = list(s.keys())[1:]
+        # counts = list(s.values())[1:]
+        plot = figure(x_range=source.data['x'], height=250, title=f"{title}", toolbar_location=None, tools="")
 
-        plot.vbar(x=stats, top=counts, width=0.9)
+        plot.vbar(x='x', top='top', source=source, width=0.9, name='pmbar')
 
 
         return plot
@@ -44,7 +44,7 @@ def bar_chart(covid):
         
         src = get_dataset(df, col)
         source.data.update(src.data)
-
+       
     default_option = 'Afghanistan'
 
     df = covid.copy()
@@ -69,6 +69,6 @@ def bar_chart(covid):
 
     layout = row(controls, plot)
 
-    tab = Panel(child = layout , title = 'Summary Table')
+    tab = Panel(child = layout , title = 'Total Status Covid')
 
     return tab

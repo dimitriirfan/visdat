@@ -68,7 +68,7 @@ def line_chart(covid):
     options = list(df.Country.unique())
     cbs = ['Confirmed', 'Recovered', 'Deaths']
 
-    col_select = Select(value=default_option, title='Country', options=options)
+    col_select = Select(value='Afghanistan', title='Country', options=options)
     cbs_selection = CheckboxGroup(labels=cbs, active=[0, 1, 2])
 
     source = get_dataset(df, 'Afghanistan', [0, 1, 2])
@@ -84,6 +84,6 @@ def line_chart(covid):
 
     layout = row(controls, plot)
 
-    tab = Panel(child = layout , title = 'Summary Table')
+    tab = Panel(child = layout , title = 'Perkembangan Covid')
 
     return tab
